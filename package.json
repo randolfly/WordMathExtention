@@ -1,0 +1,32 @@
+{
+  "name": "word-math-extension",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host localhost --port 3000",
+    "build": "vite build",
+    "preview": "vite preview --host localhost --port 3000",
+    "lint": "eslint .",
+    "dev-certs": "office-addin-dev-certs install --days 365",
+    "sideload": "npx office-addin-debugging start manifest/wordmath.xml --app word"
+  },
+  "dependencies": {
+    "@hungknguyen/mathml2omml": "^0.4.6",
+    "asciimath-parser": "^0.6.10",
+    "katex": "^0.16.44",
+    "vue": "^3.5.31"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/office-js": "^1.0.505",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-vue": "^10.0.0",
+    "office-addin-debugging": "^5.0.0",
+    "office-addin-dev-certs": "^1.13.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.0.0",
+    "vite": "^7.0.0"
+  }
+}
