@@ -6,11 +6,9 @@
     </div>
 
     <div class="btns">
-      <button class="primary" :disabled="busy" @click="insertOrUpdate">
-        插入/更新到 Word
-      </button>
-      <button :disabled="busy" @click="loadFromSelection">从选中公式加载</button>
-      <button :disabled="busy" @click="refreshPreview">刷新预览</button>
+      <button class="primary" :disabled="busy" @click="insertOrUpdate">插入到 Word </button>
+      <button :disabled="busy" @click="refreshPreview">刷新</button>
+      <button :disabled="!ascii.trim() || busy" @click="copyLatexToClipboard">复制 LaTeX </button>
     </div>
 
     <div class="row">
@@ -50,20 +48,17 @@ const insertOrUpdate = async () => {
     busy.value = false;
   }
 };
+const copyLatexToClipboard = async () => {
+  if (!ascii.value.trim()) return;
 
-const loadFromSelection = async () => {
   busy.value = true;
   error.value = null;
+
   try {
-    const loaded = await loadAsciiMathFromSelection();
-    if (loaded != null) {
-      ascii.value = loaded;
-      refreshPreview();
-    } else {
-      error.value = "未检测到选中位置的 WordMath 公式（需要先用本插件插入）。";
-    }
+    const latex = asciiMathToLatex(ascii.value);
+    await navigator.clipboard.writeText(latex);
   } catch (e) {
-    error.value = String(e);
+    error.value = "复制失败：" + String(e);
   } finally {
     busy.value = false;
   }
